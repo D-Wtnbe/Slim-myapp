@@ -1,0 +1,31 @@
+<?php
+
+
+use Phinx\Migration\AbstractMigration;
+use Illuminate\Database\Schema\Blueprint;
+
+class CreateUsersTable extends AbstractMigration
+{
+    /**
+     * Migrate Up.
+     */
+    public function up()
+    {
+        $users = $this->table('users');
+        $users->addColumn('name', 'string', ['null' => true])
+              ->addColumn('email', 'string')
+              ->addColumn('userid', 'string')
+              ->addColumn('password', 'string')
+              ->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
+              ->addColumn('updated_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
+              ->addColumn('deleted_at', 'datetime', ['null' => true])
+              ->save();
+    }
+    /**
+     * Migrate Down.
+     */
+    public function down()
+    {
+        $this->dropTable('users');
+    }
+}
